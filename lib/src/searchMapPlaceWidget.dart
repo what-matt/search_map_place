@@ -4,6 +4,7 @@ class SearchMapPlaceWidget extends StatefulWidget {
   SearchMapPlaceWidget({
     @required this.apiKey,
     this.placeholder = 'Search',
+    this.baseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json',
     this.icon = Icons.search,
     this.hasClearButton = true,
     this.clearIcon = Icons.clear,
@@ -21,6 +22,8 @@ class SearchMapPlaceWidget extends StatefulWidget {
         super(key: key);
 
   final Key key;
+
+  final String baseUrl;
 
   /// API Key of the Google Maps API.
   final String apiKey;
@@ -295,7 +298,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget> with Ticker
   /// API request function. Returns the Predictions
   Future<dynamic> _makeRequest(input) async {
     String url =
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$input&key=${widget.apiKey}&language=${widget.language}";
+        "${widget.baseUrl}?input=$input&key=${widget.apiKey}&language=${widget.language}";
     if (widget.location != null && widget.radius != null) {
       url += "&location=${widget.location.latitude},${widget.location.longitude}&radius=${widget.radius}";
       if (widget.strictBounds) {
