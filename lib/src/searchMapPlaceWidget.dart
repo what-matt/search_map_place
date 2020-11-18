@@ -4,8 +4,8 @@ class SearchMapPlaceWidget extends StatefulWidget {
   SearchMapPlaceWidget({
     @required this.apiKey,
     this.placeholder = 'Search',
-    this.baseUrl = 'https://maps.googleapis.com',
-    this.token = '',
+    @required this.baseUrl,
+    @required this.token,
     this.icon = Icons.search,
     this.hasClearButton = true,
     this.clearIcon = Icons.clear,
