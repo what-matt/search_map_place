@@ -1,7 +1,7 @@
 part of search_map_place;
 
 class Geocoding {
-  Geocoding({this.apiKey, language = 'en', baseUrl = 'https://maps.googleapis.com', token = ''});
+  Geocoding({this.apiKey, this.language = 'en', this.baseUrl = 'https://maps.googleapis.com', this.token = ''});
   String apiKey;
   String language;
   String baseUrl;
