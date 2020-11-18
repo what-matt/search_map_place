@@ -4,9 +4,8 @@ class SearchMapPlaceWidget extends StatefulWidget {
   SearchMapPlaceWidget({
     @required this.apiKey,
     this.placeholder = 'Search',
-    this.baseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json',
+    this.baseUrl = 'https://maps.googleapis.com',
     this.token = '',
-    this.device = '',
     this.icon = Icons.search,
     this.hasClearButton = true,
     this.clearIcon = Icons.clear,
@@ -28,8 +27,6 @@ class SearchMapPlaceWidget extends StatefulWidget {
   final String baseUrl;
 
   final String token;
-
-  final String device;
 
   /// API Key of the Google Maps API.
   final String apiKey;
@@ -106,7 +103,7 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget> with Ticker
 
   @override
   void initState() {
-    geocode = Geocoding(apiKey: widget.apiKey, language: widget.language);
+    geocode = Geocoding(apiKey: widget.apiKey, language: widget.language, token: widget.token, baseUrl: widget.baseUrl);
     _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     _containerHeight = Tween<double>(begin: 55, end: 364).animate(
       CurvedAnimation(
@@ -304,9 +301,9 @@ class _SearchMapPlaceWidgetState extends State<SearchMapPlaceWidget> with Ticker
   /// API request function. Returns the Predictions
   Future<dynamic> _makeRequest(input) async {
     String url =
-        "${widget.baseUrl}?input=$input&key=${widget.apiKey}&language=${widget.language}";
+        "${widget.baseUrl}/maps/api/place/autocomplete/json?input=$input&key=${widget.apiKey}&language=${widget.language}";
     if (widget.location != null && widget.radius != null) {
-      url += "&location=${widget.location.latitude},${widget.location.longitude}&radius=${widget.radius}&token=${widget.token}&device=${widget.device}";
+      url += "&location=${widget.location.latitude},${widget.location.longitude}&radius=${widget.radius}&token=${widget.token}";
       if (widget.strictBounds) {
         url += "&strictbounds";
       }
